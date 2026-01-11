@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Login or sign up for HealthCare AI - AI-powered health consultations">
+    <title>Login - HealthCare AI</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+
+    <style>
+        .auth-page {
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* Left Panel - Branding */
+        .auth-brand {
+            display: none;
+            width: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, #0d9488 100%);
+            padding: var(--space-12);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-brand::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            right: -20%;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .auth-brand::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+
+        .brand-content {
+            position: relative;
+            z-index: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--space-12);
+        }
+
+        .brand-title {
+            font-size: var(--font-size-4xl);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--space-4);
+            line-height: 1.2;
+        }
+
+        .brand-subtitle {
+            font-size: var(--font-size-lg);
+            opacity: 0.9;
+            margin-bottom: var(--space-8);
+        }
+
+        .brand-features {
+            list-style: none;
+        }
+
+        .brand-features li {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-3) 0;
+            font-size: var(--font-size-base);
+            opacity: 0.9;
+        }
+
+        .brand-features svg {
+            flex-shrink: 0;
+            color: #86efac;
+        }
+
+        /* Right Panel - Form */
+        .auth-form-panel {
+            width: 100%;
+            padding: var(--space-8) var(--space-6);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: var(--gray-50);
+        }
+
+        .auth-form-container {
+            width: 100%;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: var(--space-8);
+        }
+
+        .auth-mobile-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--primary);
+            margin-bottom: var(--space-6);
+        }
+
+        .auth-title {
+            font-size: var(--font-size-2xl);
+            margin-bottom: var(--space-2);
+        }
+
+        .auth-subtitle {
+            color: var(--gray-500);
+        }
+
+        /* Form Card */
+        .auth-card {
+            background: var(--white);
+            padding: var(--space-8);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Tabs */
+        .auth-tabs {
+            display: flex;
+            margin-bottom: var(--space-6);
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+            padding: var(--space-1);
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: var(--space-3);
+            text-align: center;
+            font-weight: var(--font-weight-medium);
+            color: var(--gray-500);
+            background: transparent;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .auth-tab.active {
+            background: var(--white);
+            color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Forms */
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+            animation: fadeIn var(--transition-normal) ease-out;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: var(--space-3);
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: none;
+            color: var(--gray-400);
+            cursor: pointer;
+            padding: var(--space-2);
+        }
+
+        .password-toggle:hover {
+            color: var(--gray-600);
+        }
+
+        /* Social Login */
+        .social-login {
+            margin-top: var(--space-6);
+        }
+
+        .btn-social {
+            width: 100%;
+            padding: var(--space-3) var(--space-4);
+            background: var(--white);
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-3);
+            font-weight: var(--font-weight-medium);
+            color: var(--gray-700);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            margin-bottom: var(--space-3);
+        }
+
+        .btn-social:hover {
+            background: var(--gray-50);
+            border-color: var(--gray-300);
+        }
+
+        /* Links */
+        .auth-links {
+            text-align: center;
+            margin-top: var(--space-6);
+            font-size: var(--font-size-sm);
+            color: var(--gray-500);
+        }
+
+        .auth-links a {
+            color: var(--primary);
+            font-weight: var(--font-weight-medium);
+        }
+
+        /* Role Selection */
+        .role-selection {
+            display: flex;
+            gap: var(--space-3);
+            margin-bottom: var(--space-4);
+        }
+
+        .role-option {
+            flex: 1;
+            padding: var(--space-4);
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .role-option:hover {
+            border-color: var(--primary);
+        }
+
+        .role-option.selected {
+            border-color: var(--primary);
+            background: var(--primary-bg);
+        }
+
+        .role-option input {
+            display: none;
+        }
+
+        .role-icon {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-2);
+        }
+
+        .role-label {
+            font-weight: var(--font-weight-medium);
+            color: var(--gray-700);
+        }
+
+        /* Password Strength */
+        .password-strength {
+            margin-top: var(--space-2);
+        }
+
+        .strength-bar {
+            height: 4px;
+            background: var(--gray-200);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+            margin-bottom: var(--space-1);
+        }
+
+        .strength-fill {
+            height: 100%;
+            width: 0;
+            transition: all var(--transition-fast);
+        }
+
+        .strength-fill.weak {
+            width: 33%;
+            background: var(--danger);
+        }
+
+        .strength-fill.medium {
+            width: 66%;
+            background: var(--warning);
+        }
+
+        .strength-fill.strong {
+            width: 100%;
+            background: var(--success);
+        }
+
+        .strength-text {
+            font-size: var(--font-size-xs);
+            color: var(--gray-500);
+        }
+
+        /* Responsive */
+        @media (min-width: 1024px) {
+            .auth-brand {
+                display: flex;
+                align-items: center;
+            }
+
+            .auth-form-panel {
+                width: 50%;
+            }
+
+            .auth-mobile-logo {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="auth-page">
+        <!-- Left Panel - Branding -->
+        <div class="auth-brand">
+            <div class="brand-content">
+                <div class="brand-logo">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                    </svg>
+                    HealthCare AI
+                </div>
+
+                <h1 class="brand-title">Your Health Journey Starts Here</h1>
+                <p class="brand-subtitle">AI-powered consultations at your fingertips. Get instant health guidance
+                    anytime, anywhere.</p>
+
+                <ul class="brand-features">
+                    <li>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        24/7 AI Health Assistant
+                    </li>
+                    <li>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        Connect with Certified Doctors
+                    </li>
+                    <li>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        Secure Health Records
+                    </li>
+                    <li>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        Prescription Management
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Right Panel - Form -->
+        <div class="auth-form-panel">
+            <div class="auth-form-container">
+                <div class="auth-header">
+                    <div class="auth-mobile-logo">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                        </svg>
+                        HealthCare AI
+                    </div>
+                    <h2 class="auth-title">Welcome Back</h2>
+                    <p class="auth-subtitle">Sign in to continue to your dashboard</p>
+                </div>
+
+                <div class="auth-card">
+                    <!-- Tabs -->
+                    <div class="auth-tabs">
+                        <button class="auth-tab active" data-tab="login">Sign In</button>
+                        <button class="auth-tab" data-tab="signup">Sign Up</button>
+                    </div>
+
+                    <!-- Login Form -->
+                    <form class="auth-form active" id="login-form" data-form="login">
+                        <div class="form-group">
+                            <label class="form-label" for="login-email">Email Address</label>
+                            <div class="input-group">
+                                <span class="input-icon">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path
+                                            d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                                        <polyline points="22,6 12,13 2,6" />
+                                    </svg>
+                                </span>
+                                <input type="email" id="login-email" class="form-input" placeholder="you@example.com"
+                                    required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="login-password">Password</label>
+                            <div class="input-group">
+                                <span class="input-icon">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                                    </svg>
+                                </span>
+                                <input type="password" id="login-password" class="form-input"
+                                    placeholder="Enter your password" required>
+                                <button type="button" class="password-toggle" data-target="login-password">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                        <circle cx="12" cy="12" r="3" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between items-center mb-6">
+                            <label class="form-check">
+                                <input type="checkbox" class="form-check-input">
+                                <span class="form-check-label text-sm">Remember me</span>
+                            </label>
+                            <a href="#" class="text-sm text-primary">Forgot password?</a>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-full btn-lg">
+                            Sign In
+                        </button>
+
+                        <div class="divider mt-6">or continue with</div>
+
+                        <div class="social-login">
+                            <button type="button" class="btn-social">
+                                <svg width="20" height="20" viewBox="0 0 24 24">
+                                    <path fill="#4285F4"
+                                        d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                                    <path fill="#34A853"
+                                        d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                                    <path fill="#FBBC05"
+                                        d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                                    <path fill="#EA4335"
+                                        d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                                </svg>
+                                Continue with Google
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Signup Form -->
+                    <form class="auth-form" id="signup-form" data-form="signup">
+                        <div class="form-group">
+                            <label class="form-label">I am a</label>
+                            <div class="role-selection">
+                                <label class="role-option selected">
+                                    <input type="radio" name="role" value="patient" checked>
+                                    <div class="role-icon">🧑</div>
+                                    <div class="role-label">Patient</div>
+                                </label>
+                                <label class="role-option">
+                                    <input type="radio" name="role" value="doctor">
+                                    <div class="role-icon">👨‍⚕️</div>
+                                    <div class="role-label">Doctor</div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="signup-name">Full Name</label>
+                            <input type="text" id="signup-name" class="form-input" placeholder="John Doe" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="signup-email">Email Address</label>
+                            <input type="email" id="signup-email" class="form-input" placeholder="you@example.com"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="signup-phone">Phone Number</label>
+                            <input type="tel" id="signup-phone" class="form-input" placeholder="+91 98765 43210">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="signup-password">Password</label>
+                            <div class="input-group">
+                                <input type="password" id="signup-password" class="form-input"
+                                    placeholder="Create a strong password" required>
+                                <button type="button" class="password-toggle" data-target="signup-password">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                        <circle cx="12" cy="12" r="3" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="password-strength">
+                                <div class="strength-bar">
+                                    <div class="strength-fill" id="strength-fill"></div>
+                                </div>
+                                <span class="strength-text" id="strength-text">Enter a password</span>
+                            </div>
+                        </div>
+
+                        <label class="form-check mb-6">
+                            <input type="checkbox" class="form-check-input" required>
+                            <span class="form-check-label text-sm">I agree to the <a href="#">Terms of Service</a> and
+                                <a href="#">Privacy Policy</a></span>
+                        </label>
+
+                        <button type="submit" class="btn btn-primary btn-full btn-lg">
+                            Create Account
+                        </button>
+                    </form>
+                </div>
+
+                <div class="auth-links">
+                    <a href="landing.html">← Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/auth.js"></script>
+    <script>
+        // Tab switching
+        document.querySelectorAll('.auth-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetForm = tab.dataset.tab;
+
+                // Update tabs
+                document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                // Update forms
+                document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+                document.querySelector(`[data-form="${targetForm}"]`).classList.add('active');
+
+                // Update header
+                const header = document.querySelector('.auth-header');
+                if (targetForm === 'login') {
+                    header.querySelector('.auth-title').textContent = 'Welcome Back';
+                    header.querySelector('.auth-subtitle').textContent = 'Sign in to continue to your dashboard';
+                } else {
+                    header.querySelector('.auth-title').textContent = 'Create Account';
+                    header.querySelector('.auth-subtitle').textContent = 'Start your health journey today';
+                }
+            });
+        });
+
+        // Password toggle
+        document.querySelectorAll('.password-toggle').forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const targetId = toggle.dataset.target;
+                const input = document.getElementById(targetId);
+                input.type = input.type === 'password' ? 'text' : 'password';
+            });
+        });
+
+        // Role selection
+        document.querySelectorAll('.role-option').forEach(option => {
+            option.addEventListener('click', () => {
+                document.querySelectorAll('.role-option').forEach(o => o.classList.remove('selected'));
+                option.classList.add('selected');
+            });
+        });
+
+        // Password strength
+        const passwordInput = document.getElementById('signup-password');
+        const strengthFill = document.getElementById('strength-fill');
+        const strengthText = document.getElementById('strength-text');
+
+        passwordInput?.addEventListener('input', (e) => {
+            const password = e.target.value;
+            let strength = 0;
+
+            if (password.length >= 8) strength++;
+            if (/[A-Z]/.test(password)) strength++;
+            if (/[0-9]/.test(password)) strength++;
+            if (/[^A-Za-z0-9]/.test(password)) strength++;
+
+            strengthFill.className = 'strength-fill';
+            if (strength <= 1) {
+                strengthFill.classList.add('weak');
+                strengthText.textContent = 'Weak password';
+            } else if (strength <= 2) {
+                strengthFill.classList.add('medium');
+                strengthText.textContent = 'Medium strength';
+            } else {
+                strengthFill.classList.add('strong');
+                strengthText.textContent = 'Strong password';
+            }
+        });
+
+        // Check for hash to switch tabs
+        if (window.location.hash === '#signup') {
+            document.querySelector('[data-tab="signup"]').click();
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - HealthCare AI</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+
+    <style>
+        .dashboard {
+            min-height: 100vh;
+            background: var(--gray-50);
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, var(--primary) 0%, #0d9488 100%);
+            color: var(--white);
+            padding: var(--space-8) var(--space-4);
+            margin-bottom: calc(-1 * var(--space-16));
+            padding-bottom: var(--space-20);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .greeting {
+            font-size: var(--font-size-sm);
+            opacity: 0.8;
+            margin-bottom: var(--space-1);
+        }
+
+        .user-name {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--space-2);
+        }
+
+        .date-display {
+            font-size: var(--font-size-sm);
+            opacity: 0.8;
+        }
+
+        .dashboard-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-4) var(--space-20);
+        }
+
+        /* Action Cards */
+        .action-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-4);
+            margin-bottom: var(--space-8);
+        }
+
+        .action-card {
+            background: var(--white);
+            padding: var(--space-6);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-4);
+        }
+
+        .action-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .action-card.primary {
+            background: linear-gradient(135deg, var(--primary) 0%, #0d9488 100%);
+            color: var(--white);
+            grid-column: span 2;
+        }
+
+        @media (max-width: 767px) {
+            .action-card.primary {
+                grid-column: span 1;
+            }
+        }
+
+        .action-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            flex-shrink: 0;
+        }
+
+        .action-card:not(.primary) .action-icon {
+            background: var(--primary-bg);
+        }
+
+        .action-card.primary .action-icon {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .action-content h3 {
+            font-size: var(--font-size-lg);
+            margin-bottom: var(--space-2);
+        }
+
+        .action-card.primary h3 {
+            color: var(--white);
+        }
+
+        .action-content p {
+            font-size: var(--font-size-sm);
+            margin: 0;
+        }
+
+        .action-card.primary p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .action-arrow {
+            margin-left: auto;
+            opacity: 0.5;
+            transition: transform var(--transition-fast);
+        }
+
+        .action-card:hover .action-arrow {
+            transform: translateX(4px);
+            opacity: 1;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            margin-bottom: var(--space-8);
+        }
+
+        .section-title {
+            font-size: var(--font-size-lg);
+            margin-bottom: var(--space-4);
+            color: var(--gray-800);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--space-4);
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: var(--space-5);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--primary);
+            margin-bottom: var(--space-1);
+        }
+
+        .stat-label {
+            font-size: var(--font-size-sm);
+            color: var(--gray-500);
+        }
+
+        /* Recent Activity */
+        .activity-section {
+            margin-bottom: var(--space-8);
+        }
+
+        .activity-list {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            padding: var(--space-4) var(--space-5);
+            border-bottom: 1px solid var(--gray-100);
+            transition: background var(--transition-fast);
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-item:hover {
+            background: var(--gray-50);
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .activity-icon.consultation {
+            background: var(--primary-bg);
+        }
+
+        .activity-icon.prescription {
+            background: var(--success-bg);
+        }
+
+        .activity-icon.triage {
+            background: var(--warning-bg);
+        }
+
+        .activity-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .activity-title {
+            font-weight: var(--font-weight-medium);
+            color: var(--gray-800);
+            margin-bottom: var(--space-1);
+        }
+
+        .activity-meta {
+            font-size: var(--font-size-sm);
+            color: var(--gray-500);
+        }
+
+        .activity-time {
+            font-size: var(--font-size-sm);
+            color: var(--gray-400);
+            white-space: nowrap;
+        }
+
+        /* Health Tip */
+        .health-tip {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            display: flex;
+            gap: var(--space-4);
+            align-items: flex-start;
+        }
+
+        .tip-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .tip-content h4 {
+            color: var(--gray-800);
+            margin-bottom: var(--space-2);
+        }
+
+        .tip-content p {
+            color: var(--gray-700);
+            margin: 0;
+            font-size: var(--font-size-sm);
+            line-height: var(--line-height-relaxed);
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            border-top: 1px solid var(--gray-100);
+            display: flex;
+            justify-content: space-around;
+            padding: var(--space-2) 0;
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: var(--space-2) var(--space-4);
+            color: var(--gray-400);
+            text-decoration: none;
+            font-size: var(--font-size-xs);
+            transition: color var(--transition-fast);
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        .nav-item svg {
+            margin-bottom: var(--space-1);
+        }
+
+        @media (min-width: 1024px) {
+            .bottom-nav {
+                display: none;
+            }
+
+            .dashboard-content {
+                padding-bottom: var(--space-8);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Top Navigation -->
+    <nav class="navbar">
+        <a href="landing.html" class="navbar-brand">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+            </svg>
+            HealthCare AI
+        </a>
+        <div class="flex items-center gap-4">
+            <button class="btn btn-ghost btn-icon" title="Notifications">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                </svg>
+            </button>
+            <div class="avatar" id="user-avatar">JD</div>
+        </div>
+    </nav>
+
+    <div class="dashboard">
+        <!-- Header -->
+        <div class="dashboard-header">
+            <div class="header-content">
+                <p class="greeting">Good afternoon,</p>
+                <h1 class="user-name" id="welcome-name">John Doe</h1>
+                <p class="date-display" id="current-date"></p>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="dashboard-content">
+            <!-- Action Cards -->
+            <div class="action-cards">
+                <a href="consultation-chat.html" class="action-card primary">
+                    <div class="action-icon">🩺</div>
+                    <div class="action-content">
+                        <h3>Start New Consultation</h3>
+                        <p>Chat with our AI assistant about your health concerns</p>
+                    </div>
+                    <svg class="action-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </a>
+
+                <a href="consultations.html" class="action-card">
+                    <div class="action-icon">📋</div>
+                    <div class="action-content">
+                        <h3>My Consultations</h3>
+                        <p>View past consultations and diagnoses</p>
+                    </div>
+                    <svg class="action-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </a>
+
+                <a href="prescriptions.html" class="action-card">
+                    <div class="action-icon">💊</div>
+                    <div class="action-content">
+                        <h3>My Prescriptions</h3>
+                        <p>Manage medications and reminders</p>
+                    </div>
+                    <svg class="action-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </a>
+
+                <a href="#" class="action-card">
+                    <div class="action-icon">👤</div>
+                    <div class="action-content">
+                        <h3>Update Profile</h3>
+                        <p>Edit personal and medical info</p>
+                    </div>
+                    <svg class="action-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats-section">
+                <h2 class="section-title">Your Health Overview</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">5</div>
+                        <div class="stat-label">Total Consultations</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">3</div>
+                        <div class="stat-label">Active Prescriptions</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">2</div>
+                        <div class="stat-label">AI Sessions</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">Low</div>
+                        <div class="stat-label">Last Risk Level</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="activity-section">
+                <h2 class="section-title">Recent Activity</h2>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon consultation">🩺</div>
+                        <div class="activity-content">
+                            <div class="activity-title">Consultation with Dr. Smith</div>
+                            <div class="activity-meta">Diagnosis: Common Cold</div>
+                        </div>
+                        <div class="activity-time">2 days ago</div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon prescription">💊</div>
+                        <div class="activity-content">
+                            <div class="activity-title">New Prescription Added</div>
+                            <div class="activity-meta">Paracetamol 500mg - 5 days</div>
+                        </div>
+                        <div class="activity-time">2 days ago</div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon triage">🤖</div>
+                        <div class="activity-content">
+                            <div class="activity-title">AI Consultation Completed</div>
+                            <div class="activity-meta">Risk Level: Low - Monitor at home</div>
+                        </div>
+                        <div class="activity-time">5 days ago</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Health Tip -->
+            <div class="health-tip">
+                <div class="tip-icon">💡</div>
+                <div class="tip-content">
+                    <h4>Health Tip of the Day</h4>
+                    <p>Stay hydrated! Drinking at least 8 glasses of water daily helps maintain body temperature,
+                        lubricates joints, and aids in nutrient absorption.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="patient-dashboard.html" class="nav-item active">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <polyline points="9 22 9 12 15 12 15 22" />
+            </svg>
+            Home
+        </a>
+        <a href="consultation-chat.html" class="nav-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+            Consult
+        </a>
+        <a href="consultations.html" class="nav-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="16" y1="13" x2="8" y2="13" />
+                <line x1="16" y1="17" x2="8" y2="17" />
+            </svg>
+            History
+        </a>
+        <a href="#" class="nav-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+            </svg>
+            Profile
+        </a>
+    </nav>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        // Set current date
+        const dateEl = document.getElementById('current-date');
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        dateEl.textContent = new Date().toLocaleDateString('en-US', options);
+
+        // Set greeting based on time
+        const hour = new Date().getHours();
+        let greeting = 'Good morning';
+        if (hour >= 12 && hour < 17) greeting = 'Good afternoon';
+        else if (hour >= 17) greeting = 'Good evening';
+        document.querySelector('.greeting').textContent = greeting + ',';
+
+        // Load user data
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            if (user.name) {
+                document.getElementById('welcome-name').textContent = user.name;
+                document.getElementById('user-avatar').textContent = user.name.split(' ').map(n => n[0]).join('').toUpperCase();
+            }
+        });
+    </script>
+</body>
+
+</html>

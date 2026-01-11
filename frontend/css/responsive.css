@@ -1,0 +1,423 @@
+/*
+ * Healthcare Triage - Responsive Styles
+ * Mobile-first responsive design
+ */
+
+/* ==================== MOBILE (Default) ==================== */
+/* Base styles are mobile-first in style.css */
+
+/* Hide on mobile */
+.hide-mobile {
+    display: none;
+}
+
+.show-mobile {
+    display: block;
+}
+
+/* Mobile layout adjustments */
+.sidebar {
+    transform: translateX(-100%);
+    transition: transform var(--transition-normal);
+}
+
+.sidebar.open {
+    transform: translateX(0);
+}
+
+.main-content {
+    padding-bottom: 80px;
+    /* Space for bottom nav */
+}
+
+/* Mobile grid */
+.grid-cols-2,
+.grid-cols-3,
+.grid-cols-4 {
+    grid-template-columns: 1fr;
+}
+
+/* Mobile typography */
+h1 {
+    font-size: var(--font-size-2xl);
+}
+
+h2 {
+    font-size: var(--font-size-xl);
+}
+
+h3 {
+    font-size: var(--font-size-lg);
+}
+
+/* Mobile cards */
+.card-body {
+    padding: var(--space-4);
+}
+
+/* Mobile chat */
+.chat-message {
+    max-width: 90%;
+}
+
+/* Mobile table */
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Mobile modal */
+.modal {
+    max-width: calc(100% - var(--space-8));
+    max-height: calc(100vh - var(--space-8));
+}
+
+/* ==================== TABLET (768px+) ==================== */
+@media (min-width: 768px) {
+    .container {
+        padding: 0 var(--space-6);
+    }
+
+    /* Show/hide classes */
+    .hide-tablet {
+        display: none;
+    }
+
+    .show-tablet {
+        display: block;
+    }
+
+    /* Tablet grid */
+    .grid-cols-2 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid-cols-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid-cols-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Tablet typography */
+    h1 {
+        font-size: var(--font-size-3xl);
+    }
+
+    h2 {
+        font-size: var(--font-size-2xl);
+    }
+
+    h3 {
+        font-size: var(--font-size-xl);
+    }
+
+    /* Tablet cards */
+    .card-body {
+        padding: var(--space-6);
+    }
+
+    /* Tablet forms */
+    .form-row {
+        display: flex;
+        gap: var(--space-4);
+    }
+
+    .form-row .form-group {
+        flex: 1;
+    }
+
+    /* Tablet chat */
+    .chat-message {
+        max-width: 75%;
+    }
+
+    /* Tablet modal */
+    .modal {
+        max-width: 500px;
+    }
+
+    .modal-lg {
+        max-width: 700px;
+    }
+}
+
+/* ==================== DESKTOP (1024px+) ==================== */
+@media (min-width: 1024px) {
+    .container {
+        padding: 0 var(--space-8);
+    }
+
+    /* Show/hide classes */
+    .hide-desktop {
+        display: none;
+    }
+
+    .show-desktop {
+        display: block;
+    }
+
+    .hide-mobile {
+        display: block;
+    }
+
+    .show-mobile {
+        display: none;
+    }
+
+    /* Desktop grid */
+    .grid-cols-3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .grid-cols-4 {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    /* Desktop typography */
+    h1 {
+        font-size: var(--font-size-4xl);
+    }
+
+    h2 {
+        font-size: var(--font-size-3xl);
+    }
+
+    h3 {
+        font-size: var(--font-size-2xl);
+    }
+
+    /* Sidebar layout */
+    .sidebar {
+        transform: translateX(0);
+    }
+
+    .layout-sidebar {
+        display: flex;
+    }
+
+    .layout-sidebar .sidebar {
+        position: fixed;
+        width: 260px;
+    }
+
+    .layout-sidebar .main-content {
+        margin-left: 260px;
+        padding-bottom: 0;
+    }
+
+    /* Hide bottom nav on desktop */
+    .bottom-nav {
+        display: none;
+    }
+
+    /* Desktop cards */
+    .card-body {
+        padding: var(--space-8);
+    }
+
+    /* Desktop chat */
+    .chat-message {
+        max-width: 60%;
+    }
+
+    /* Desktop modal */
+    .modal-lg {
+        max-width: 800px;
+    }
+
+    .modal-xl {
+        max-width: 1000px;
+    }
+
+    /* Hover effects (desktop only) */
+    .btn:hover:not(:disabled) {
+        transform: translateY(-2px);
+    }
+
+    .card-clickable:hover {
+        transform: translateY(-4px);
+    }
+}
+
+/* ==================== LARGE DESKTOP (1280px+) ==================== */
+@media (min-width: 1280px) {
+    .container {
+        max-width: 1200px;
+    }
+
+    .container-xl {
+        max-width: 1400px;
+    }
+
+    /* Larger sidebar */
+    .layout-sidebar .sidebar {
+        width: 280px;
+    }
+
+    .layout-sidebar .main-content {
+        margin-left: 280px;
+    }
+}
+
+/* ==================== PRINT STYLES ==================== */
+@media print {
+
+    .sidebar,
+    .bottom-nav,
+    .navbar,
+    .btn,
+    .no-print {
+        display: none !important;
+    }
+
+    .main-content {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .card {
+        box-shadow: none;
+        border: 1px solid var(--gray-300);
+    }
+
+    body {
+        font-size: 12pt;
+        color: black;
+        background: white;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        page-break-after: avoid;
+    }
+
+    table,
+    figure {
+        page-break-inside: avoid;
+    }
+}
+
+/* ==================== REDUCED MOTION ==================== */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ==================== DARK MODE (Optional) ==================== */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --gray-50: #1e293b;
+        --gray-100: #334155;
+        --gray-200: #475569;
+        --gray-300: #64748b;
+        --gray-400: #94a3b8;
+        --gray-500: #cbd5e1;
+        --gray-600: #e2e8f0;
+        --gray-700: #f1f5f9;
+        --gray-800: #f8fafc;
+        --gray-900: #ffffff;
+        --white: #0f172a;
+    }
+
+    body {
+        background-color: #0f172a;
+    }
+
+    .card {
+        background: #1e293b;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+        background: #1e293b;
+        border-color: #475569;
+        color: #f8fafc;
+    }
+}
+
+/* ==================== LANDSCAPE MOBILE ==================== */
+@media (max-height: 500px) and (orientation: landscape) {
+    .navbar {
+        padding: var(--space-2) var(--space-4);
+    }
+
+    .bottom-nav {
+        padding: var(--space-1) var(--space-4);
+    }
+
+    .main-content {
+        padding-bottom: 60px;
+    }
+
+    h1 {
+        font-size: var(--font-size-xl);
+    }
+
+    h2 {
+        font-size: var(--font-size-lg);
+    }
+}
+
+/* ==================== HIGH CONTRAST ==================== */
+@media (prefers-contrast: high) {
+    :root {
+        --primary: #0066aa;
+        --success: #008800;
+        --warning: #cc5500;
+        --danger: #cc0000;
+    }
+
+    .btn {
+        border-width: 3px;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+        border-width: 3px;
+    }
+}
+
+/* ==================== TOUCH DEVICE OPTIMIZATIONS ==================== */
+@media (hover: none) and (pointer: coarse) {
+
+    /* Larger touch targets */
+    .btn {
+        min-height: 48px;
+        min-width: 48px;
+    }
+
+    .form-input,
+    .form-select {
+        min-height: 48px;
+    }
+
+    .nav-link,
+    .sidebar-link {
+        padding: var(--space-4);
+    }
+
+    /* Remove hover effects */
+    .btn:hover {
+        transform: none;
+    }
+
+    .card-clickable:hover {
+        transform: none;
+    }
+}

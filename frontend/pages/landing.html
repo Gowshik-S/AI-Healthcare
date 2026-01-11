@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AI-powered healthcare consultation - Get instant health guidance, connect with doctors, and manage prescriptions">
+  <title>HealthCare AI - Smart Health Consultation</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  
+  <style>
+    /* Landing Page Specific Styles */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f0fdfa 0%, #e0f2fe 50%, #f0f9ff 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(32, 128, 144, 0.1) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(34, 197, 94, 0.08) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: var(--space-20) var(--space-4);
+    }
+    
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-4);
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(32, 128, 144, 0.2);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-sm);
+      color: var(--primary);
+      margin-bottom: var(--space-6);
+      animation: fadeInUp 0.6s ease-out;
+    }
+    
+    .hero-title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700;
+      color: var(--gray-900);
+      max-width: 800px;
+      margin-bottom: var(--space-6);
+      animation: fadeInUp 0.6s ease-out 0.1s both;
+    }
+    
+    .hero-title span {
+      background: linear-gradient(135deg, var(--primary) 0%, #2dd4bf 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .hero-subtitle {
+      font-size: var(--font-size-xl);
+      color: var(--gray-600);
+      max-width: 600px;
+      margin-bottom: var(--space-8);
+      animation: fadeInUp 0.6s ease-out 0.2s both;
+    }
+    
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-4);
+      animation: fadeInUp 0.6s ease-out 0.3s both;
+    }
+    
+    .hero-image {
+      margin-top: var(--space-16);
+      max-width: 100%;
+      animation: fadeInUp 0.6s ease-out 0.4s both;
+    }
+    
+    .hero-image img {
+      max-width: 100%;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-xl), 0 20px 60px rgba(32, 128, 144, 0.2);
+    }
+    
+    /* Services Section */
+    .services {
+      padding: var(--space-20) var(--space-4);
+      background: var(--white);
+    }
+    
+    .section-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto var(--space-16);
+    }
+    
+    .section-title {
+      font-size: var(--font-size-3xl);
+      margin-bottom: var(--space-4);
+    }
+    
+    .section-subtitle {
+      font-size: var(--font-size-lg);
+      color: var(--gray-500);
+    }
+    
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-8);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .service-card {
+      padding: var(--space-8);
+      background: var(--white);
+      border: 1px solid var(--gray-100);
+      border-radius: var(--radius-xl);
+      text-align: center;
+      transition: all var(--transition-normal);
+    }
+    
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-xl);
+      border-color: transparent;
+    }
+    
+    .service-icon {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto var(--space-6);
+      padding: var(--space-4);
+      background: var(--primary-bg);
+      border-radius: var(--radius-xl);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+    }
+    
+    .service-card:nth-child(2) .service-icon { background: var(--success-bg); }
+    .service-card:nth-child(3) .service-icon { background: var(--warning-bg); }
+    .service-card:nth-child(4) .service-icon { background: var(--info-bg); }
+    
+    .service-title {
+      font-size: var(--font-size-xl);
+      margin-bottom: var(--space-3);
+    }
+    
+    .service-desc {
+      color: var(--gray-500);
+      line-height: var(--line-height-relaxed);
+    }
+    
+    /* How It Works */
+    .how-it-works {
+      padding: var(--space-20) var(--space-4);
+      background: linear-gradient(180deg, var(--gray-50) 0%, var(--white) 100%);
+    }
+    
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-8);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .step {
+      display: flex;
+      gap: var(--space-6);
+      align-items: flex-start;
+    }
+    
+    .step-number {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: var(--white);
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-xl);
+    }
+    
+    .step-content h3 {
+      font-size: var(--font-size-xl);
+      margin-bottom: var(--space-2);
+    }
+    
+    .step-content p {
+      color: var(--gray-500);
+    }
+    
+    /* CTA Section */
+    .cta {
+      padding: var(--space-20) var(--space-4);
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      text-align: center;
+      color: var(--white);
+    }
+    
+    .cta h2 {
+      font-size: var(--font-size-3xl);
+      color: var(--white);
+      margin-bottom: var(--space-4);
+    }
+    
+    .cta p {
+      font-size: var(--font-size-lg);
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: var(--space-8);
+    }
+    
+    .cta .btn-secondary {
+      background: var(--white);
+      color: var(--primary);
+      border-color: var(--white);
+    }
+    
+    .cta .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.9);
+    }
+    
+    /* Footer */
+    .footer {
+      padding: var(--space-12) var(--space-4);
+      background: var(--gray-900);
+      color: var(--gray-400);
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-8);
+    }
+    
+    .footer-brand {
+      max-width: 300px;
+    }
+    
+    .footer-logo {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--white);
+      margin-bottom: var(--space-4);
+    }
+    
+    .footer-links h4 {
+      color: var(--white);
+      margin-bottom: var(--space-4);
+      font-size: var(--font-size-base);
+    }
+    
+    .footer-links ul {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: var(--space-2);
+    }
+    
+    .footer-links a {
+      color: var(--gray-400);
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+    
+    .footer-links a:hover {
+      color: var(--white);
+    }
+    
+    .footer-bottom {
+      max-width: 1200px;
+      margin: var(--space-8) auto 0;
+      padding-top: var(--space-8);
+      border-top: 1px solid var(--gray-800);
+      text-align: center;
+      font-size: var(--font-size-sm);
+    }
+    
+    /* Responsive */
+    @media (min-width: 768px) {
+      .hero-content {
+        padding: var(--space-20) var(--space-8);
+      }
+      
+      .steps {
+        gap: var(--space-12);
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .hero-content {
+        flex-direction: row;
+        text-align: left;
+        align-items: center;
+        justify-content: space-between;
+        padding: var(--space-20) var(--space-16);
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      
+      .hero-text {
+        max-width: 50%;
+      }
+      
+      .hero-buttons {
+        justify-content: flex-start;
+      }
+      
+      .hero-image {
+        margin-top: 0;
+        max-width: 45%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <a href="landing.html" class="navbar-brand">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+      </svg>
+      HealthCare AI
+    </a>
+    <div class="navbar-nav hide-mobile">
+      <a href="#services" class="nav-link">Services</a>
+      <a href="#how-it-works" class="nav-link">How It Works</a>
+      <a href="index.html" class="nav-link">Login</a>
+      <a href="index.html#signup" class="btn btn-primary">Get Started</a>
+    </div>
+    <button class="btn btn-ghost btn-icon show-mobile" id="menu-toggle">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+  </nav>
+  
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <div class="hero-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+          Powered by AI
+        </div>
+        <h1 class="hero-title">
+          Your Health, <span>Smarter Decisions</span>
+        </h1>
+        <p class="hero-subtitle">
+          Get instant AI-powered health consultations, connect with certified doctors, and manage your medications — all in one place.
+        </p>
+        <div class="hero-buttons">
+          <a href="index.html#signup" class="btn btn-primary btn-lg">
+            Start Free Consultation
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+          <a href="#how-it-works" class="btn btn-secondary btn-lg">
+            Learn More
+          </a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div style="width: 500px; height: 350px; background: linear-gradient(135deg, var(--primary-bg) 0%, var(--success-bg) 100%); border-radius: var(--radius-xl); display: flex; align-items: center; justify-content: center; font-size: 4rem;">
+          🏥
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Services Section -->
+  <section class="services" id="services">
+    <div class="section-header">
+      <h2 class="section-title">Our Services</h2>
+      <p class="section-subtitle">Comprehensive healthcare solutions powered by artificial intelligence</p>
+    </div>
+    
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🤖</div>
+        <h3 class="service-title">AI Health Consultation</h3>
+        <p class="service-desc">Chat with our AI assistant to get instant health guidance based on your symptoms and medical history.</p>
+      </div>
+      
+      <div class="service-card">
+        <div class="service-icon">👨‍⚕️</div>
+        <h3 class="service-title">Connect with Doctors</h3>
+        <p class="service-desc">Book consultations with certified healthcare professionals for personalized medical advice.</p>
+      </div>
+      
+      <div class="service-card">
+        <div class="service-icon">💊</div>
+        <h3 class="service-title">Prescription Management</h3>
+        <p class="service-desc">Keep track of your medications, set reminders, and never miss a dose again.</p>
+      </div>
+      
+      <div class="service-card">
+        <div class="service-icon">📊</div>
+        <h3 class="service-title">Health History</h3>
+        <p class="service-desc">All your medical records, consultations, and prescriptions stored securely in one place.</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- How It Works -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="section-header">
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-subtitle">Get started in just three simple steps</p>
+    </div>
+    
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h3>Create Your Account</h3>
+          <p>Sign up for free and complete your health profile with basic medical information for personalized recommendations.</p>
+        </div>
+      </div>
+      
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h3>Start AI Consultation</h3>
+          <p>Describe your symptoms to our AI assistant. It analyzes your input along with your medical history to provide guidance.</p>
+        </div>
+      </div>
+      
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h3>Get Care & Follow Up</h3>
+          <p>Receive recommendations, connect with doctors if needed, and manage your prescriptions all in one platform.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA Section -->
+  <section class="cta">
+    <h2>Ready to Take Control of Your Health?</h2>
+    <p>Join thousands of users who trust HealthCare AI for their health needs.</p>
+    <a href="index.html#signup" class="btn btn-secondary btn-lg">
+      Get Started for Free
+    </a>
+  </section>
+  
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="footer-logo">🏥 HealthCare AI</div>
+        <p>Empowering individuals with AI-driven health insights for better healthcare decisions.</p>
+      </div>
+      
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="index.html">Login</a></li>
+          <li><a href="index.html#signup">Sign Up</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-links">
+        <h4>For Professionals</h4>
+        <ul>
+          <li><a href="doctor-dashboard.html">Doctor Portal</a></li>
+          <li><a href="admin.html">Admin Panel</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-links">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2026 HealthCare AI. All rights reserved.</p>
+    </div>
+  </footer>
+  
+  <script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    menuToggle?.addEventListener('click', () => {
+      // Add mobile menu functionality
+      alert('Mobile menu coming soon!');
+    });
+    
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
