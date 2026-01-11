@@ -1,5 +1,5 @@
 
-# 🏥 HealthCare AI
+#  HealthCare AI
 
 > **AI-powered healthcare triage system for intelligent symptom assessment and patient management**
 
@@ -7,29 +7,29 @@ A comprehensive healthcare platform that combines artificial intelligence with t
 
 ---
 
-## ✨ Features
+##  Features
 
 ### For Patients
-- **🤖 AI Health Consultation** — Chat with an intelligent AI assistant for instant symptom analysis and health guidance
-- **📋 Consultation History** — Access complete records of all past consultations and diagnoses
-- **💊 Prescription Management** — Track medications, set reminders, and monitor treatment progress
-- **👤 Health Profile** — Maintain personal health records including medical history and allergies
+- ** AI Health Consultation** — Chat with an intelligent AI assistant for instant symptom analysis and health guidance
+- ** Consultation History** — Access complete records of all past consultations and diagnoses
+- ** Prescription Management** — Track medications, set reminders, and monitor treatment progress
+- ** Health Profile** — Maintain personal health records including medical history and allergies
 
 ### For Doctors
-- **📊 Patient Dashboard** — Comprehensive overview of patient cases and health metrics
-- **🚨 Triage Alerts** — Real-time notifications for high-risk patients requiring immediate attention
-- **📝 Consultation Management** — Create, manage, and follow up on patient consultations
-- **💉 Prescription System** — Issue and track prescriptions with dosage instructions
+- ** Patient Dashboard** — Comprehensive overview of patient cases and health metrics
+- ** Triage Alerts** — Real-time notifications for high-risk patients requiring immediate attention
+- ** Consultation Management** — Create, manage, and follow up on patient consultations
+- ** Prescription System** — Issue and track prescriptions with dosage instructions
 
 ### Platform Features
-- **🔐 Secure Authentication** — JWT-based authentication with role-based access control
-- **🛡️ HIPAA Considerations** — Privacy-focused design for healthcare data handling
-- **📱 Responsive Design** — Seamless experience across desktop and mobile devices
-- **⚡ Real-time Updates** — Instant notification system for critical health alerts
+- ** Secure Authentication** — JWT-based authentication with role-based access control
+- ** HIPAA Considerations** — Privacy-focused design for healthcare data handling
+- ** Responsive Design** — Seamless experience across desktop and mobile devices
+- ** Real-time Updates** — Instant notification system for critical health alerts
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
 ```
 AI-HEALTHCARE/
@@ -71,7 +71,7 @@ AI-HEALTHCARE/
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 
@@ -178,7 +178,7 @@ The frontend is built with vanilla HTML, CSS, and JavaScript — no build step r
 
 ---
 
-## 🎨 Design System
+##  Design System
 
 The frontend uses a clean, professional color palette:
 
@@ -244,8 +244,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 For support, please open an issue in the GitHub repository or contact the development team.
 
+Email : gowshik@vortexinfinite.xyz
+
 ---
 
-<p align="center">
-  Made with ❤️ for better healthcare
-</p>

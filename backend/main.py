@@ -6,6 +6,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 
+from config import settings
 from database import init_db
 from routes import (
     auth_router,
@@ -55,9 +56,11 @@ app = FastAPI(
 )
 
 # Configure CORS for frontend access
+# In development, allow all origins for easier testing
+cors_origins = ["*"] if not settings.is_production else settings.CORS_ORIGINS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Configure appropriately for production
+    allow_origins=cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

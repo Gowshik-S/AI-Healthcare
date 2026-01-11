@@ -11,13 +11,14 @@ from sqlalchemy.orm import Session
 
 from database import get_db
 from models import User
+from config import settings
 
 # ==================== CONFIGURATION ====================
 
-# JWT Settings - In production, use environment variables
-SECRET_KEY = "your-super-secret-key-change-in-production-healthcare-triage-2024"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24  # 24 hours
+# JWT Settings from environment variables
+SECRET_KEY = settings.SECRET_KEY
+ALGORITHM = settings.ALGORITHM
+ACCESS_TOKEN_EXPIRE_MINUTES = settings.ACCESS_TOKEN_EXPIRE_MINUTES
 
 # Password hashing
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")

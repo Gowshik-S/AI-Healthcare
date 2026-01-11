@@ -1,19 +1,31 @@
 """
 Database configuration and session management for Healthcare Triage System.
-Uses SQLite for offline-first capability.
+Supports PostgreSQL (production) and SQLite (development).
 """
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-# SQLite database URL - stored locally for offline support
-SQLALCHEMY_DATABASE_URL = "sqlite:///./healthcare_triage.db"
+from config import settings
 
-# Create engine with check_same_thread=False for SQLite
-engine = create_engine(
-    SQLALCHEMY_DATABASE_URL,
-    connect_args={"check_same_thread": False}
-)
+# Get database URL from settings
+SQLALCHEMY_DATABASE_URL = settings.DATABASE_URL
+
+# Create engine with appropriate settings based on database type
+if settings.is_sqlite:
+    # SQLite configuration
+    engine = create_engine(
+        SQLALCHEMY_DATABASE_URL,
+        connect_args={"check_same_thread": False}
+    )
+else:
+    # PostgreSQL configuration
+    engine = create_engine(
+        SQLALCHEMY_DATABASE_URL,
+        pool_pre_ping=True,  # Enable connection health checks
+        pool_size=5,
+        max_overflow=10
+    )
 
 # Session factory
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -44,3 +56,4 @@ def init_db():
         Symptom, TriageSession, Prescription, RedFlag
     )
     Base.metadata.create_all(bind=engine)
+    print(f"📦 Database: {'SQLite' if settings.is_sqlite else 'PostgreSQL'}")
