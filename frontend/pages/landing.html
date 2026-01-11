@@ -19,6 +19,73 @@
   <link rel="stylesheet" href="../css/responsive.css">
 
   <style>
+    /* Landing Page Navbar */
+    .landing-navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--color-white);
+      border-bottom: 1px solid var(--color-border);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .landing-navbar .navbar {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-4);
+      background: transparent;
+      border-bottom: none;
+    }
+
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      text-decoration: none;
+    }
+
+    .navbar-nav {
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+    }
+
+    .nav-link {
+      color: var(--color-text-light);
+      text-decoration: none;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      transition: color var(--transition-fast);
+    }
+
+    .nav-link:hover {
+      color: var(--color-primary);
+    }
+
+    .hide-mobile {
+      display: none;
+    }
+
+    .show-mobile {
+      display: flex;
+    }
+
+    @media (min-width: 768px) {
+      .hide-mobile {
+        display: flex;
+      }
+
+      .show-mobile {
+        display: none;
+      }
+    }
+
     /* Hero Section */
     .hero {
       background: var(--color-white);
@@ -378,27 +445,29 @@
 
 <body>
   <!-- Navigation -->
-  <nav class="navbar">
-    <a href="landing.html" class="navbar-brand">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-      </svg>
-      HealthCare AI
-    </a>
-    <div class="navbar-nav hide-mobile">
-      <a href="#services" class="nav-link">Services</a>
-      <a href="#how-it-works" class="nav-link">How It Works</a>
-      <a href="index.html" class="nav-link">Login</a>
-      <a href="index.html#signup" class="btn btn-primary">Get Started</a>
-    </div>
-    <button class="btn btn-ghost btn-icon show-mobile" id="menu-toggle">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <line x1="3" y1="12" x2="21" y2="12"></line>
-        <line x1="3" y1="6" x2="21" y2="6"></line>
-        <line x1="3" y1="18" x2="21" y2="18"></line>
-      </svg>
-    </button>
-  </nav>
+  <div class="landing-navbar">
+    <nav class="navbar">
+      <a href="landing.html" class="navbar-brand">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+        </svg>
+        HealthCare AI
+      </a>
+      <div class="navbar-nav hide-mobile">
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#how-it-works" class="nav-link">How It Works</a>
+        <a href="index.html" class="nav-link">Login</a>
+        <a href="index.html#signup" class="btn btn-primary">Get Started</a>
+      </div>
+      <button class="btn btn-ghost btn-icon show-mobile" id="menu-toggle">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </nav>
+  </div>
 
   <!-- Hero Section -->
   <section class="hero">

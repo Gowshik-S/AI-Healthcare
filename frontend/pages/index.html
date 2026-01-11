@@ -555,13 +555,70 @@
                             </div>
                         </div>
 
+                        <!-- Doctor-specific fields (hidden by default) -->
+                        <div id="doctor-fields" style="display: none;">
+                            <div class="doctor-notice"
+                                style="background: var(--color-warning-bg); border: 1px solid var(--color-warning); border-radius: var(--radius-lg); padding: var(--space-4); margin-bottom: var(--space-4);">
+                                <div style="display: flex; align-items: flex-start; gap: var(--space-3);">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                        stroke="var(--color-warning)" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <line x1="12" y1="8" x2="12" y2="12" />
+                                        <line x1="12" y1="16" x2="12.01" y2="16" />
+                                    </svg>
+                                    <div>
+                                        <div
+                                            style="font-weight: 600; font-size: var(--font-size-sm); color: var(--color-text); margin-bottom: 4px;">
+                                            Verification Required</div>
+                                        <div style="font-size: var(--font-size-sm); color: var(--color-text-light);">
+                                            Doctor accounts require admin verification. Your application will be
+                                            reviewed within 24-48 hours.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="doctor-license">Medical License Number *</label>
+                                <input type="text" id="doctor-license" class="form-input"
+                                    placeholder="e.g., LIC-2024-123456">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="doctor-id">Unique ID Number *</label>
+                                <input type="text" id="doctor-id" class="form-input"
+                                    placeholder="e.g., NMC-12345 or State Medical ID">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="doctor-specialty">Specialty *</label>
+                                <select id="doctor-specialty" class="form-input">
+                                    <option value="">Select your specialty</option>
+                                    <option value="general">General Physician</option>
+                                    <option value="cardiology">Cardiologist</option>
+                                    <option value="dermatology">Dermatologist</option>
+                                    <option value="neurology">Neurologist</option>
+                                    <option value="orthopedics">Orthopedic Surgeon</option>
+                                    <option value="pediatrics">Pediatrician</option>
+                                    <option value="psychiatry">Psychiatrist</option>
+                                    <option value="gynecology">Gynecologist</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="doctor-hospital">Hospital/Clinic Affiliation</label>
+                                <input type="text" id="doctor-hospital" class="form-input"
+                                    placeholder="e.g., City General Hospital">
+                            </div>
+                        </div>
+
                         <label class="form-check mb-6">
                             <input type="checkbox" class="form-check-input" required>
                             <span class="form-check-label">I agree to the <a href="#">Terms of Service</a> and
                                 <a href="#">Privacy Policy</a></span>
                         </label>
 
-                        <button type="submit" class="btn btn-primary btn-full btn-lg">
+                        <button type="submit" class="btn btn-primary btn-full btn-lg" id="signup-submit-btn">
                             Create Account
                         </button>
                     </form>
@@ -611,10 +668,31 @@
         });
 
         // Role selection
+        const doctorFields = document.getElementById('doctor-fields');
+        const submitBtn = document.getElementById('signup-submit-btn');
+
         document.querySelectorAll('.role-option').forEach(option => {
             option.addEventListener('click', () => {
                 document.querySelectorAll('.role-option').forEach(o => o.classList.remove('selected'));
                 option.classList.add('selected');
+
+                const role = option.querySelector('input[name="role"]').value;
+
+                if (role === 'doctor') {
+                    doctorFields.style.display = 'block';
+                    submitBtn.textContent = 'Submit for Verification';
+                    // Make doctor fields required
+                    document.getElementById('doctor-license').required = true;
+                    document.getElementById('doctor-id').required = true;
+                    document.getElementById('doctor-specialty').required = true;
+                } else {
+                    doctorFields.style.display = 'none';
+                    submitBtn.textContent = 'Create Account';
+                    // Remove required from doctor fields
+                    document.getElementById('doctor-license').required = false;
+                    document.getElementById('doctor-id').required = false;
+                    document.getElementById('doctor-specialty').required = false;
+                }
             });
         });
 
@@ -650,6 +728,7 @@
             document.querySelector('[data-tab="signup"]').click();
         }
     </script>
+    <script src="../js/transitions.js"></script>
 </body>
 
 </html>

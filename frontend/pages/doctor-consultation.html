@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write Consultation - HealthCare AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <style>
+        .page-container {
+            display: flex;
+            min-height: 100vh;
+            background: var(--color-white);
+        }
+
+        .sidebar {
+            width: 260px;
+            background: var(--color-white);
+            border-right: 1px solid var(--color-border);
+            padding: var(--space-6);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            overflow-y: auto;
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-primary);
+            margin-bottom: var(--space-8);
+            text-decoration: none;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-item {
+            margin-bottom: var(--space-1);
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-3) var(--space-4);
+            color: var(--color-text-light);
+            text-decoration: none;
+            border-radius: var(--radius-lg);
+            font-size: var(--font-size-sm);
+        }
+
+        .sidebar-link:hover {
+            background: var(--color-bg-subtle);
+            color: var(--color-text);
+        }
+
+        .sidebar-link.active {
+            background: var(--color-primary-bg);
+            color: var(--color-primary);
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            padding: var(--space-6);
+            max-width: 900px;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            margin-bottom: var(--space-6);
+        }
+
+        .back-btn {
+            padding: var(--space-2);
+            background: transparent;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+        }
+
+        .patient-select {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-xl);
+            padding: var(--space-4);
+            margin-bottom: var(--space-6);
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+        }
+
+        .patient-avatar {
+            width: 48px;
+            height: 48px;
+            background: var(--color-primary);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-white);
+            font-weight: var(--font-weight-bold);
+        }
+
+        .patient-info {
+            flex: 1;
+        }
+
+        .patient-info h3 {
+            font-size: var(--font-size-base);
+            margin-bottom: 2px;
+        }
+
+        .patient-info p {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-muted);
+            margin: 0;
+        }
+
+        .form-section {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-xl);
+            padding: var(--space-5);
+            margin-bottom: var(--space-4);
+        }
+
+        .section-title {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--space-4);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .form-group {
+            margin-bottom: var(--space-4);
+        }
+
+        .form-group label {
+            display: block;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            color: var(--color-text-light);
+            margin-bottom: var(--space-2);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: var(--space-3) var(--space-4);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            font-size: var(--font-size-sm);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--space-3);
+        }
+
+        .prescription-item {
+            background: var(--color-bg-subtle);
+            border: 1px solid var(--color-border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            margin-bottom: var(--space-3);
+        }
+
+        .prescription-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-3);
+            font-weight: var(--font-weight-medium);
+            font-size: var(--font-size-sm);
+        }
+
+        .remove-btn {
+            padding: var(--space-1) var(--space-2);
+            background: transparent;
+            border: none;
+            color: var(--color-danger);
+            cursor: pointer;
+            font-size: var(--font-size-sm);
+        }
+
+        .add-prescription-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+            width: 100%;
+            padding: var(--space-3);
+            background: transparent;
+            border: 2px dashed var(--color-border);
+            border-radius: var(--radius-lg);
+            color: var(--color-primary);
+            cursor: pointer;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+        }
+
+        .add-prescription-btn:hover {
+            background: var(--color-primary-bg);
+            border-color: var(--color-primary);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: var(--space-3);
+            padding-top: var(--space-4);
+        }
+
+        @media (max-width: 1023px) {
+            .sidebar {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-container">
+        <aside class="sidebar">
+            <a href="landing.html" class="sidebar-logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                </svg>
+                HealthCare AI
+            </a>
+            <ul class="sidebar-nav">
+                <li class="sidebar-item">
+                    <a href="doctor-dashboard.html" class="sidebar-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                        </svg>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="doctor-patient-view.html" class="sidebar-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                        </svg>
+                        My Patients
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="doctor-consultation.html" class="sidebar-link active">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        </svg>
+                        Consultations
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="index.html" class="sidebar-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                            <polyline points="16 17 21 12 16 7" />
+                            <line x1="21" y1="12" x2="9" y2="12" />
+                        </svg>
+                        Logout
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <button class="back-btn" onclick="history.back()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6" />
+                    </svg>
+                </button>
+                <h1>Write Consultation</h1>
+            </div>
+
+            <div class="patient-select">
+                <div class="patient-avatar">JD</div>
+                <div class="patient-info">
+                    <h3>John Doe</h3>
+                    <p>Male, 32 years • Blood Group: O+</p>
+                </div>
+                <a href="doctor-patient-view.html" class="btn btn-secondary btn-sm">View Profile</a>
+            </div>
+
+            <form id="consultation-form">
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        </svg>
+                        Diagnosis
+                    </h3>
+                    <div class="form-group">
+                        <label for="diagnosis">Primary Diagnosis</label>
+                        <input type="text" id="diagnosis" placeholder="Enter diagnosis">
+                    </div>
+                    <div class="form-group">
+                        <label for="notes">Clinical Notes</label>
+                        <textarea id="notes" placeholder="Enter detailed notes about the consultation"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path
+                                d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                        </svg>
+                        Prescriptions
+                    </h3>
+
+                    <div id="prescriptions-list">
+                        <div class="prescription-item">
+                            <div class="prescription-item-header">
+                                <span>Prescription 1</span>
+                                <button type="button" class="remove-btn"
+                                    onclick="removePrescription(this)">Remove</button>
+                            </div>
+                            <div class="form-group">
+                                <label>Drug Name</label>
+                                <input type="text" placeholder="e.g., Paracetamol">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Dosage</label>
+                                    <select>
+                                        <option>250mg</option>
+                                        <option selected>500mg</option>
+                                        <option>1000mg</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Frequency</label>
+                                    <select>
+                                        <option>1x daily</option>
+                                        <option selected>2x daily</option>
+                                        <option>3x daily</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Duration</label>
+                                    <select>
+                                        <option>3 days</option>
+                                        <option selected>5 days</option>
+                                        <option>7 days</option>
+                                        <option>14 days</option>
+                                        <option>30 days</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label>Instructions</label>
+                                <input type="text" placeholder="e.g., Take after meals">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="add-prescription-btn" onclick="addPrescription()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19" />
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                        </svg>
+                        Add Prescription
+                    </button>
+                </div>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-secondary" onclick="history.back()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Send to Patient</button>
+                </div>
+            </form>
+        </main>
+    </div>
+
+    <script src="../js/transitions.js"></script>
+    <script>
+        let prescriptionCount = 1;
+
+        function addPrescription() {
+            prescriptionCount++;
+            const list = document.getElementById('prescriptions-list');
+            const item = document.createElement('div');
+            item.className = 'prescription-item';
+            item.innerHTML = `
+                <div class="prescription-item-header">
+                    <span>Prescription ${prescriptionCount}</span>
+                    <button type="button" class="remove-btn" onclick="removePrescription(this)">Remove</button>
+                </div>
+                <div class="form-group">
+                    <label>Drug Name</label>
+                    <input type="text" placeholder="e.g., Paracetamol">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Dosage</label>
+                        <select>
+                            <option>250mg</option>
+                            <option selected>500mg</option>
+                            <option>1000mg</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Frequency</label>
+                        <select>
+                            <option>1x daily</option>
+                            <option selected>2x daily</option>
+                            <option>3x daily</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Duration</label>
+                        <select>
+                            <option>3 days</option>
+                            <option selected>5 days</option>
+                            <option>7 days</option>
+                            <option>14 days</option>
+                            <option>30 days</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label>Instructions</label>
+                    <input type="text" placeholder="e.g., Take after meals">
+                </div>
+            `;
+            list.appendChild(item);
+        }
+
+        function removePrescription(btn) {
+            btn.closest('.prescription-item').remove();
+        }
+
+        document.getElementById('consultation-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Consultation sent to patient successfully!');
+            window.location.href = 'doctor-dashboard.html';
+        });
+    </script>
+</body>
+
+</html>
