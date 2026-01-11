@@ -17,15 +17,15 @@
     <style>
         .dashboard {
             min-height: 100vh;
-            background: var(--gray-50);
+            background: var(--color-bg-subtle);
         }
 
         .dashboard-header {
-            background: linear-gradient(135deg, var(--primary) 0%, #0d9488 100%);
-            color: var(--white);
+            background: var(--color-primary);
+            color: var(--color-white);
             padding: var(--space-8) var(--space-4);
-            margin-bottom: calc(-1 * var(--space-16));
-            padding-bottom: var(--space-20);
+            margin-bottom: calc(-1 * var(--space-12));
+            padding-bottom: var(--space-16);
         }
 
         .header-content {
@@ -35,7 +35,7 @@
 
         .greeting {
             font-size: var(--font-size-sm);
-            opacity: 0.8;
+            opacity: 0.9;
             margin-bottom: var(--space-1);
         }
 
@@ -43,6 +43,7 @@
             font-size: var(--font-size-2xl);
             font-weight: var(--font-weight-bold);
             margin-bottom: var(--space-2);
+            color: var(--color-white);
         }
 
         .date-display {
@@ -65,10 +66,10 @@
         }
 
         .action-card {
-            background: var(--white);
-            padding: var(--space-6);
+            background: var(--color-white);
+            padding: var(--space-5);
+            border: 1px solid var(--color-border);
             border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-md);
             cursor: pointer;
             transition: all var(--transition-normal);
             text-decoration: none;
@@ -79,13 +80,14 @@
         }
 
         .action-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-xl);
+            box-shadow: var(--shadow-md);
+            border-color: var(--color-primary);
         }
 
         .action-card.primary {
-            background: linear-gradient(135deg, var(--primary) 0%, #0d9488 100%);
-            color: var(--white);
+            background: var(--color-primary);
+            color: var(--color-white);
+            border-color: var(--color-primary);
             grid-column: span 2;
         }
 
@@ -96,51 +98,60 @@
         }
 
         .action-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: var(--radius-xl);
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-lg);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.75rem;
             flex-shrink: 0;
         }
 
         .action-card:not(.primary) .action-icon {
-            background: var(--primary-bg);
+            background: var(--color-primary-bg);
+            color: var(--color-primary);
         }
 
         .action-card.primary .action-icon {
             background: rgba(255, 255, 255, 0.2);
+            color: var(--color-white);
+        }
+
+        .action-content {
+            flex: 1;
         }
 
         .action-content h3 {
-            font-size: var(--font-size-lg);
-            margin-bottom: var(--space-2);
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--space-1);
         }
 
         .action-card.primary h3 {
-            color: var(--white);
+            color: var(--color-white);
         }
 
         .action-content p {
             font-size: var(--font-size-sm);
             margin: 0;
+            color: var(--color-text-light);
         }
 
         .action-card.primary p {
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.9);
         }
 
         .action-arrow {
-            margin-left: auto;
-            opacity: 0.5;
+            color: var(--color-text-muted);
             transition: transform var(--transition-fast);
+        }
+
+        .action-card.primary .action-arrow {
+            color: rgba(255, 255, 255, 0.8);
         }
 
         .action-card:hover .action-arrow {
             transform: translateX(4px);
-            opacity: 1;
         }
 
         /* Stats Section */
@@ -150,34 +161,35 @@
 
         .section-title {
             font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
             margin-bottom: var(--space-4);
-            color: var(--gray-800);
+            color: var(--color-text);
         }
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: var(--space-4);
         }
 
         .stat-card {
-            background: var(--white);
+            background: var(--color-white);
             padding: var(--space-5);
+            border: 1px solid var(--color-border);
             border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-sm);
             text-align: center;
         }
 
         .stat-value {
             font-size: var(--font-size-2xl);
             font-weight: var(--font-weight-bold);
-            color: var(--primary);
+            color: var(--color-primary);
             margin-bottom: var(--space-1);
         }
 
         .stat-label {
             font-size: var(--font-size-sm);
-            color: var(--gray-500);
+            color: var(--color-text-light);
         }
 
         /* Recent Activity */
@@ -186,9 +198,9 @@
         }
 
         .activity-list {
-            background: var(--white);
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
             border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-sm);
             overflow: hidden;
         }
 
@@ -197,7 +209,7 @@
             align-items: center;
             gap: var(--space-4);
             padding: var(--space-4) var(--space-5);
-            border-bottom: 1px solid var(--gray-100);
+            border-bottom: 1px solid var(--color-border-light);
             transition: background var(--transition-fast);
         }
 
@@ -206,30 +218,32 @@
         }
 
         .activity-item:hover {
-            background: var(--gray-50);
+            background: var(--color-bg-subtle);
         }
 
         .activity-icon {
             width: 40px;
             height: 40px;
-            border-radius: var(--radius-full);
+            border-radius: var(--radius-lg);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.25rem;
             flex-shrink: 0;
         }
 
         .activity-icon.consultation {
-            background: var(--primary-bg);
+            background: var(--color-primary-bg);
+            color: var(--color-primary);
         }
 
         .activity-icon.prescription {
-            background: var(--success-bg);
+            background: var(--color-success-bg);
+            color: var(--color-success);
         }
 
         .activity-icon.triage {
-            background: var(--warning-bg);
+            background: var(--color-warning-bg);
+            color: var(--color-warning);
         }
 
         .activity-content {
@@ -238,44 +252,56 @@
         }
 
         .activity-title {
+            font-size: var(--font-size-sm);
             font-weight: var(--font-weight-medium);
-            color: var(--gray-800);
+            color: var(--color-text);
             margin-bottom: var(--space-1);
         }
 
         .activity-meta {
             font-size: var(--font-size-sm);
-            color: var(--gray-500);
+            color: var(--color-text-light);
         }
 
         .activity-time {
             font-size: var(--font-size-sm);
-            color: var(--gray-400);
+            color: var(--color-text-muted);
             white-space: nowrap;
         }
 
         /* Health Tip */
         .health-tip {
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-            border-radius: var(--radius-xl);
-            padding: var(--space-6);
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-left: 4px solid var(--color-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-5);
             display: flex;
             gap: var(--space-4);
             align-items: flex-start;
         }
 
         .tip-icon {
-            font-size: 2rem;
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-lg);
+            background: var(--color-primary-bg);
+            color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             flex-shrink: 0;
         }
 
         .tip-content h4 {
-            color: var(--gray-800);
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text);
             margin-bottom: var(--space-2);
         }
 
         .tip-content p {
-            color: var(--gray-700);
+            color: var(--color-text-light);
             margin: 0;
             font-size: var(--font-size-sm);
             line-height: var(--line-height-relaxed);
@@ -287,8 +313,8 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: var(--white);
-            border-top: 1px solid var(--gray-100);
+            background: var(--color-white);
+            border-top: 1px solid var(--color-border);
             display: flex;
             justify-content: space-around;
             padding: var(--space-2) 0;
@@ -300,14 +326,14 @@
             flex-direction: column;
             align-items: center;
             padding: var(--space-2) var(--space-4);
-            color: var(--gray-400);
+            color: var(--color-text-muted);
             text-decoration: none;
             font-size: var(--font-size-xs);
             transition: color var(--transition-fast);
         }
 
         .nav-item.active {
-            color: var(--primary);
+            color: var(--color-primary);
         }
 
         .nav-item svg {
@@ -330,7 +356,7 @@
     <!-- Top Navigation -->
     <nav class="navbar">
         <a href="landing.html" class="navbar-brand">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
             </svg>
             HealthCare AI
@@ -361,12 +387,20 @@
             <!-- Action Cards -->
             <div class="action-cards">
                 <a href="consultation-chat.html" class="action-card primary">
-                    <div class="action-icon">🩺</div>
+                    <div class="action-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path
+                                d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3" />
+                            <path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4" />
+                            <circle cx="20" cy="10" r="2" />
+                        </svg>
+                    </div>
                     <div class="action-content">
                         <h3>Start New Consultation</h3>
                         <p>Chat with our AI assistant about your health concerns</p>
                     </div>
-                    <svg class="action-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    <svg class="action-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2">
                         <line x1="5" y1="12" x2="19" y2="12"></line>
                         <polyline points="12 5 19 12 12 19"></polyline>
@@ -374,36 +408,56 @@
                 </a>
 
                 <a href="consultations.html" class="action-card">
-                    <div class="action-icon">📋</div>
+                    <div class="action-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                            <line x1="16" y1="13" x2="8" y2="13" />
+                            <line x1="16" y1="17" x2="8" y2="17" />
+                        </svg>
+                    </div>
                     <div class="action-content">
                         <h3>My Consultations</h3>
                         <p>View past consultations and diagnoses</p>
                     </div>
-                    <svg class="action-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    <svg class="action-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2">
                         <polyline points="9 18 15 12 9 6"></polyline>
                     </svg>
                 </a>
 
                 <a href="prescriptions.html" class="action-card">
-                    <div class="action-icon">💊</div>
+                    <div class="action-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path
+                                d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                        </svg>
+                    </div>
                     <div class="action-content">
                         <h3>My Prescriptions</h3>
                         <p>Manage medications and reminders</p>
                     </div>
-                    <svg class="action-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    <svg class="action-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2">
                         <polyline points="9 18 15 12 9 6"></polyline>
                     </svg>
                 </a>
 
                 <a href="#" class="action-card">
-                    <div class="action-icon">👤</div>
+                    <div class="action-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+                    </div>
                     <div class="action-content">
                         <h3>Update Profile</h3>
                         <p>Edit personal and medical info</p>
                     </div>
-                    <svg class="action-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    <svg class="action-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2">
                         <polyline points="9 18 15 12 9 6"></polyline>
                     </svg>
@@ -438,7 +492,15 @@
                 <h2 class="section-title">Recent Activity</h2>
                 <div class="activity-list">
                     <div class="activity-item">
-                        <div class="activity-icon consultation">🩺</div>
+                        <div class="activity-icon consultation">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path
+                                    d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3" />
+                                <path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4" />
+                                <circle cx="20" cy="10" r="2" />
+                            </svg>
+                        </div>
                         <div class="activity-content">
                             <div class="activity-title">Consultation with Dr. Smith</div>
                             <div class="activity-meta">Diagnosis: Common Cold</div>
@@ -446,7 +508,13 @@
                         <div class="activity-time">2 days ago</div>
                     </div>
                     <div class="activity-item">
-                        <div class="activity-icon prescription">💊</div>
+                        <div class="activity-icon prescription">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path
+                                    d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                            </svg>
+                        </div>
                         <div class="activity-content">
                             <div class="activity-title">New Prescription Added</div>
                             <div class="activity-meta">Paracetamol 500mg - 5 days</div>
@@ -454,7 +522,12 @@
                         <div class="activity-time">2 days ago</div>
                     </div>
                     <div class="activity-item">
-                        <div class="activity-icon triage">🤖</div>
+                        <div class="activity-icon triage">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                            </svg>
+                        </div>
                         <div class="activity-content">
                             <div class="activity-title">AI Consultation Completed</div>
                             <div class="activity-meta">Risk Level: Low - Monitor at home</div>
@@ -466,7 +539,13 @@
 
             <!-- Health Tip -->
             <div class="health-tip">
-                <div class="tip-icon">💡</div>
+                <div class="tip-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="2" x2="12" y2="6" />
+                        <line x1="12" y1="18" x2="12" y2="22" />
+                        <circle cx="12" cy="12" r="4" />
+                    </svg>
+                </div>
                 <div class="tip-content">
                     <h4>Health Tip of the Day</h4>
                     <p>Stay hydrated! Drinking at least 8 glasses of water daily helps maintain body temperature,
@@ -479,20 +558,20 @@
     <!-- Bottom Navigation -->
     <nav class="bottom-nav">
         <a href="patient-dashboard.html" class="nav-item active">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
                 <polyline points="9 22 9 12 15 12 15 22" />
             </svg>
             Home
         </a>
         <a href="consultation-chat.html" class="nav-item">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
             </svg>
             Consult
         </a>
         <a href="consultations.html" class="nav-item">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                 <polyline points="14 2 14 8 20 8" />
                 <line x1="16" y1="13" x2="8" y2="13" />
@@ -501,7 +580,7 @@
             History
         </a>
         <a href="#" class="nav-item">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                 <circle cx="12" cy="7" r="4" />
             </svg>

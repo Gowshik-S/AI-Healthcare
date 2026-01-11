@@ -27,33 +27,10 @@
         .auth-brand {
             display: none;
             width: 50%;
-            background: linear-gradient(135deg, var(--primary) 0%, #0d9488 100%);
+            background: var(--color-primary);
             padding: var(--space-12);
-            color: var(--white);
+            color: var(--color-white);
             position: relative;
-            overflow: hidden;
-        }
-
-        .auth-brand::before {
-            content: '';
-            position: absolute;
-            top: -20%;
-            right: -20%;
-            width: 500px;
-            height: 500px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-        }
-
-        .auth-brand::after {
-            content: '';
-            position: absolute;
-            bottom: -20%;
-            left: -10%;
-            width: 400px;
-            height: 400px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 50%;
         }
 
         .brand-content {
@@ -63,28 +40,31 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            max-width: 480px;
         }
 
         .brand-logo {
             display: flex;
             align-items: center;
             gap: var(--space-3);
-            font-size: var(--font-size-xl);
+            font-size: var(--font-size-lg);
             font-weight: var(--font-weight-bold);
             margin-bottom: var(--space-12);
         }
 
         .brand-title {
-            font-size: var(--font-size-4xl);
+            font-size: var(--font-size-3xl);
             font-weight: var(--font-weight-bold);
             margin-bottom: var(--space-4);
             line-height: 1.2;
+            color: var(--color-white);
         }
 
         .brand-subtitle {
-            font-size: var(--font-size-lg);
+            font-size: var(--font-size-base);
             opacity: 0.9;
             margin-bottom: var(--space-8);
+            line-height: var(--line-height-relaxed);
         }
 
         .brand-features {
@@ -96,13 +76,13 @@
             align-items: center;
             gap: var(--space-3);
             padding: var(--space-3) 0;
-            font-size: var(--font-size-base);
+            font-size: var(--font-size-sm);
             opacity: 0.9;
         }
 
         .brand-features svg {
             flex-shrink: 0;
-            color: #86efac;
+            opacity: 0.8;
         }
 
         /* Right Panel - Form */
@@ -112,12 +92,12 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            background: var(--gray-50);
+            background: var(--color-white);
         }
 
         .auth-form-container {
             width: 100%;
-            max-width: 420px;
+            max-width: 400px;
             margin: 0 auto;
         }
 
@@ -131,9 +111,9 @@
             align-items: center;
             justify-content: center;
             gap: var(--space-2);
-            font-size: var(--font-size-xl);
+            font-size: var(--font-size-lg);
             font-weight: var(--font-weight-bold);
-            color: var(--primary);
+            color: var(--color-primary);
             margin-bottom: var(--space-6);
         }
 
@@ -143,32 +123,35 @@
         }
 
         .auth-subtitle {
-            color: var(--gray-500);
+            color: var(--color-text-light);
+            font-size: var(--font-size-sm);
+            margin: 0;
         }
 
         /* Form Card */
         .auth-card {
-            background: var(--white);
-            padding: var(--space-8);
+            background: var(--color-white);
+            padding: var(--space-6);
+            border: 1px solid var(--color-border);
             border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-lg);
         }
 
         /* Tabs */
         .auth-tabs {
             display: flex;
             margin-bottom: var(--space-6);
-            background: var(--gray-100);
+            background: var(--color-bg-muted);
             border-radius: var(--radius-lg);
-            padding: var(--space-1);
+            padding: 4px;
         }
 
         .auth-tab {
             flex: 1;
             padding: var(--space-3);
             text-align: center;
+            font-size: var(--font-size-sm);
             font-weight: var(--font-weight-medium);
-            color: var(--gray-500);
+            color: var(--color-text-light);
             background: transparent;
             border: none;
             border-radius: var(--radius-md);
@@ -177,8 +160,8 @@
         }
 
         .auth-tab.active {
-            background: var(--white);
-            color: var(--primary);
+            background: var(--color-white);
+            color: var(--color-primary);
             box-shadow: var(--shadow-sm);
         }
 
@@ -199,13 +182,15 @@
             transform: translateY(-50%);
             background: transparent;
             border: none;
-            color: var(--gray-400);
+            color: var(--color-text-muted);
             cursor: pointer;
             padding: var(--space-2);
+            display: flex;
+            align-items: center;
         }
 
         .password-toggle:hover {
-            color: var(--gray-600);
+            color: var(--color-text-light);
         }
 
         /* Social Login */
@@ -216,23 +201,24 @@
         .btn-social {
             width: 100%;
             padding: var(--space-3) var(--space-4);
-            background: var(--white);
-            border: 2px solid var(--gray-200);
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
             border-radius: var(--radius-lg);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: var(--space-3);
+            font-size: var(--font-size-sm);
             font-weight: var(--font-weight-medium);
-            color: var(--gray-700);
+            color: var(--color-text);
             cursor: pointer;
             transition: all var(--transition-fast);
             margin-bottom: var(--space-3);
         }
 
         .btn-social:hover {
-            background: var(--gray-50);
-            border-color: var(--gray-300);
+            background: var(--color-bg-subtle);
+            border-color: var(--color-border);
         }
 
         /* Links */
@@ -240,11 +226,11 @@
             text-align: center;
             margin-top: var(--space-6);
             font-size: var(--font-size-sm);
-            color: var(--gray-500);
+            color: var(--color-text-light);
         }
 
         .auth-links a {
-            color: var(--primary);
+            color: var(--color-primary);
             font-weight: var(--font-weight-medium);
         }
 
@@ -258,7 +244,7 @@
         .role-option {
             flex: 1;
             padding: var(--space-4);
-            border: 2px solid var(--gray-200);
+            border: 1px solid var(--color-border);
             border-radius: var(--radius-lg);
             text-align: center;
             cursor: pointer;
@@ -266,12 +252,12 @@
         }
 
         .role-option:hover {
-            border-color: var(--primary);
+            border-color: var(--color-primary);
         }
 
         .role-option.selected {
-            border-color: var(--primary);
-            background: var(--primary-bg);
+            border-color: var(--color-primary);
+            background: var(--color-primary-bg);
         }
 
         .role-option input {
@@ -279,13 +265,26 @@
         }
 
         .role-icon {
-            font-size: 1.5rem;
-            margin-bottom: var(--space-2);
+            width: 40px;
+            height: 40px;
+            margin: 0 auto var(--space-2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-bg-muted);
+            border-radius: var(--radius-full);
+            color: var(--color-text-light);
+        }
+
+        .role-option.selected .role-icon {
+            background: var(--color-primary);
+            color: var(--color-white);
         }
 
         .role-label {
+            font-size: var(--font-size-sm);
             font-weight: var(--font-weight-medium);
-            color: var(--gray-700);
+            color: var(--color-text);
         }
 
         /* Password Strength */
@@ -295,7 +294,7 @@
 
         .strength-bar {
             height: 4px;
-            background: var(--gray-200);
+            background: var(--color-bg-muted);
             border-radius: var(--radius-full);
             overflow: hidden;
             margin-bottom: var(--space-1);
@@ -309,22 +308,22 @@
 
         .strength-fill.weak {
             width: 33%;
-            background: var(--danger);
+            background: var(--color-danger);
         }
 
         .strength-fill.medium {
             width: 66%;
-            background: var(--warning);
+            background: var(--color-warning);
         }
 
         .strength-fill.strong {
             width: 100%;
-            background: var(--success);
+            background: var(--color-success);
         }
 
         .strength-text {
             font-size: var(--font-size-xs);
-            color: var(--gray-500);
+            color: var(--color-text-muted);
         }
 
         /* Responsive */
@@ -351,7 +350,7 @@
         <div class="auth-brand">
             <div class="brand-content">
                 <div class="brand-logo">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
                     </svg>
                     HealthCare AI
@@ -399,7 +398,7 @@
             <div class="auth-form-container">
                 <div class="auth-header">
                     <div class="auth-mobile-logo">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2">
                             <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
                         </svg>
@@ -422,7 +421,7 @@
                             <label class="form-label" for="login-email">Email Address</label>
                             <div class="input-group">
                                 <span class="input-icon">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2">
                                         <path
                                             d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
@@ -438,7 +437,7 @@
                             <label class="form-label" for="login-password">Password</label>
                             <div class="input-group">
                                 <span class="input-icon">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2">
                                         <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                                         <path d="M7 11V7a5 5 0 0 1 10 0v4" />
@@ -447,7 +446,7 @@
                                 <input type="password" id="login-password" class="form-input"
                                     placeholder="Enter your password" required>
                                 <button type="button" class="password-toggle" data-target="login-password">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2">
                                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                                         <circle cx="12" cy="12" r="3" />
@@ -459,7 +458,7 @@
                         <div class="flex justify-between items-center mb-6">
                             <label class="form-check">
                                 <input type="checkbox" class="form-check-input">
-                                <span class="form-check-label text-sm">Remember me</span>
+                                <span class="form-check-label">Remember me</span>
                             </label>
                             <a href="#" class="text-sm text-primary">Forgot password?</a>
                         </div>
@@ -472,7 +471,7 @@
 
                         <div class="social-login">
                             <button type="button" class="btn-social">
-                                <svg width="20" height="20" viewBox="0 0 24 24">
+                                <svg width="18" height="18" viewBox="0 0 24 24">
                                     <path fill="#4285F4"
                                         d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
                                     <path fill="#34A853"
@@ -494,12 +493,26 @@
                             <div class="role-selection">
                                 <label class="role-option selected">
                                     <input type="radio" name="role" value="patient" checked>
-                                    <div class="role-icon">🧑</div>
+                                    <div class="role-icon">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                            <circle cx="12" cy="7" r="4" />
+                                        </svg>
+                                    </div>
                                     <div class="role-label">Patient</div>
                                 </label>
                                 <label class="role-option">
                                     <input type="radio" name="role" value="doctor">
-                                    <div class="role-icon">👨‍⚕️</div>
+                                    <div class="role-icon">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                                            <circle cx="8.5" cy="7" r="4" />
+                                            <line x1="20" y1="8" x2="20" y2="14" />
+                                            <line x1="23" y1="11" x2="17" y2="11" />
+                                        </svg>
+                                    </div>
                                     <div class="role-label">Doctor</div>
                                 </label>
                             </div>
@@ -527,7 +540,7 @@
                                 <input type="password" id="signup-password" class="form-input"
                                     placeholder="Create a strong password" required>
                                 <button type="button" class="password-toggle" data-target="signup-password">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2">
                                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                                         <circle cx="12" cy="12" r="3" />
@@ -544,7 +557,7 @@
 
                         <label class="form-check mb-6">
                             <input type="checkbox" class="form-check-input" required>
-                            <span class="form-check-label text-sm">I agree to the <a href="#">Terms of Service</a> and
+                            <span class="form-check-label">I agree to the <a href="#">Terms of Service</a> and
                                 <a href="#">Privacy Policy</a></span>
                         </label>
 
