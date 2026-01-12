@@ -66,5 +66,5 @@ def init_db():
     Base.metadata.create_all(bind=engine)
     
     db_type = "PostgreSQL (Neon)" if "neon.tech" in SQLALCHEMY_DATABASE_URL else "PostgreSQL" if settings.is_postgresql else "SQLite"
-    print(f"📦 Database: {db_type}")
-    print(f"   Pool Size: {settings.DB_POOL_SIZE}, Max Overflow: {settings.DB_MAX_OVERFLOW}")
+    print(f"Database: {db_type}")
+    print(f"Pool Size: {settings.DB_POOL_SIZE}, Max Overflow: {settings.DB_MAX_OVERFLOW}")
