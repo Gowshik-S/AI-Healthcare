@@ -204,6 +204,10 @@
     padding-right: var(--space-10);
 }
 
+.form-select option {
+    color: var(--color-text);
+}
+
 .form-hint {
     margin-top: var(--space-2);
     font-size: var(--font-size-sm);

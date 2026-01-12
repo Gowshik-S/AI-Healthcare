@@ -120,6 +120,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Hide browser extension overlays that create unwanted effects */
+#preact-border-shadow-host,
+[id*="shadow-host"],
+[class*="extension-overlay"],
+[class*="browser-extension"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
 /* ==================== TYPOGRAPHY ==================== */
 h1,
 h2,
