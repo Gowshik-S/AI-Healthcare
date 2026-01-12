@@ -4,7 +4,15 @@
  */
 
 // Use API_BASE_URL from config.js (loaded before this file)
-const API_BASE_URL = (typeof CONFIG !== 'undefined' && CONFIG.API_BASE_URL) || 'http://localhost:8000';
+// Ensure config.js is loaded before this file in HTML
+const API_BASE_URL = (() => {
+  if (typeof CONFIG !== 'undefined' && CONFIG.API_BASE_URL) {
+    return CONFIG.API_BASE_URL;
+  }
+  // Fallback with warning
+  console.warn('⚠️ CONFIG not loaded. Using default API URL.');
+  return 'http://localhost:8000';
+})();
 
 /**
  * Generic fetch wrapper with auth headers and error handling

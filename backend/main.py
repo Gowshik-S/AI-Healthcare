@@ -2,6 +2,7 @@
 Healthcare Triage System - FastAPI Application
 Main entry point for the backend API.
 """
+import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
@@ -16,6 +17,13 @@ from routes import (
     consultations_router
 )
 
+# Configure logging based on environment
+logging.basicConfig(
+    level=getattr(logging, settings.LOG_LEVEL.upper(), logging.INFO),
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -24,12 +32,14 @@ async def lifespan(app: FastAPI):
     Initializes database on startup.
     """
     # Startup
-    print("🏥 Healthcare Triage System Starting...")
+    logger.info("🏥 Healthcare Triage System Starting...")
+    logger.info(f"🌍 Environment: {settings.ENVIRONMENT}")
+    logger.info(f"🔗 CORS Origins: {settings.CORS_ORIGINS}")
     init_db()
-    print("✅ Database initialized")
+    logger.info("✅ Database initialized")
     yield
     # Shutdown
-    print("👋 Healthcare Triage System Shutting down...")
+    logger.info("👋 Healthcare Triage System Shutting down...")
 
 
 # Create FastAPI application
@@ -52,12 +62,18 @@ app = FastAPI(
     - **Admin**: Full system access
     """,
     version="1.0.0",
-    lifespan=lifespan
+    lifespan=lifespan,
+    docs_url="/docs" if settings.DEBUG or not settings.is_production else None,
+    redoc_url="/redoc" if settings.DEBUG or not settings.is_production else None,
 )
 
-# Configure CORS for frontend access
+# Configure CORS - use specific origins from environment
 # In development, allow all origins for easier testing
-cors_origins = ["*"] if not settings.is_production else settings.CORS_ORIGINS
+if settings.is_production and settings.CORS_ORIGINS:
+    cors_origins = settings.CORS_ORIGINS
+else:
+    cors_origins = ["*"]
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=cors_origins,
@@ -83,7 +99,8 @@ async def root():
         "status": "success",
         "message": "Healthcare Triage API is running",
         "version": "1.0.0",
-        "docs": "/docs"
+        "environment": settings.ENVIRONMENT,
+        "docs": "/docs" if not settings.is_production else "disabled"
     }
 
 
@@ -94,11 +111,17 @@ async def health_check():
     """
     return {
         "status": "healthy",
-        "database": "connected",
+        "database": "PostgreSQL" if settings.is_postgresql else "SQLite",
+        "environment": settings.ENVIRONMENT,
         "api_version": "1.0.0"
     }
 
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run(
+        "main:app", 
+        host=settings.HOST, 
+        port=settings.PORT, 
+        reload=settings.DEBUG
+    )
