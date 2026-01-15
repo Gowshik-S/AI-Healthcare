@@ -27,7 +27,7 @@ const detectApiUrl = () => {
     // Production environment - configure your backend URL here
     // For ignite.gowshik.online, update this to your actual backend URL
     const productionApiUrls = {
-        'ignite.gowshik.online': 'https://ai-healthcare-nvrw.onrender.com',  // Updated backend URL
+        'ignite.gowshik.online': 'https://ai-healthcare-rly7.onrender.com/',  // Updated backend URL
         // Add more domain mappings as needed
     };
 
